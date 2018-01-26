@@ -286,6 +286,31 @@ class Parser:
     def ifFunction(self,a,b,c):
         return b if a else c
 
+    def roundD(self, a, p):
+
+        # import decimal
+        # from fractions import Fraction
+        from decimal import Decimal, ROUND_HALF_UP
+        # import decimal
+        # context = decimal.getcontext()
+        # context.rounding = decimal.ROUND_HALF_UP
+        # print(decimal.getcontext())
+
+        x=Decimal(a)
+        # rounding = Fraction(Decimal(1) / Decimal(10 ** p))
+        ans = x.quantize(Decimal(p),rounding=ROUND_HALF_UP)
+        # ans2= x.quantize(Decimal(p),rounding=ROUND_HALF_EVEN)
+        # ans = round(decimal.Decimal(x), p)
+        # print('Round: ', rounding)
+        # ans = '{}'.format(round(a, p))
+        # ans = '{0:.{1}f}'.format(round(a * 100, p) / 100, p)
+        print('Original value', a)
+        # print('Calc: ', round(a * 100, p) / 100)
+        print('Precision: ', p)
+        print('Answer: ', ans, ans2)
+        print()
+        return ans
+
     def append(self, a, b):
         if type(a) != list:
             return [a, b]
@@ -317,6 +342,7 @@ class Parser:
             'ceil': math.ceil,
             'floor': math.floor,
             'round': round,
+            # 'roundD': rounD,
             '-': self.neg,
             'exp': math.exp,
         }
@@ -349,7 +375,8 @@ class Parser:
             'pow': math.pow,
             'atan2': math.atan2,
             'concat':self.concat,
-            'if': self.ifFunction
+            'if': self.ifFunction,
+            'roundD': self.roundD
         }
 
         self.consts = {

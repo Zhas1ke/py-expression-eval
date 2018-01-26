@@ -20,6 +20,10 @@ class ParserTestCase(unittest.TestCase):
     def setUp(self):
         self.parser = Parser()
 
+    def test_if(self):
+        parser = Parser()
+        self.assertEqual(parser.parse('if(a,b,c)').evaluate({'a':3,'b':2,'c':1}), 2)
+
     def test_parser(self):
         parser = Parser()
         #parser and variables
